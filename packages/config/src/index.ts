@@ -68,6 +68,9 @@ export let read = async (cwd: string, packages: Packages) => {
 };
 
 export let parse = (json: WrittenConfig, packages: Packages): Config => {
+  if (json.publishRoot) {
+    packages.packages.push(packages.root);
+  }
   let messages = [];
   let pkgNames: readonly string[] = packages.packages.map(
     ({ packageJson }) => packageJson.name
